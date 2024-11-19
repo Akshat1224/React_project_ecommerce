@@ -1,16 +1,3 @@
-import CommonForm from "@/components/common/form";
-import { useToast } from "@/components/ui/use-toast";
-import { loginFormControls } from "@/config";
-import { loginUser } from "@/store/auth-slice";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-
-const initialState = {
-  email: "",
-  password: "",
-};
-
 function AuthLogin() {
   const [formData, setFormData] = useState(initialState);
   const dispatch = useDispatch();
@@ -34,15 +21,22 @@ function AuthLogin() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-md space-y-6">
+    <div
+      className="mx-auto w-full max-w-md space-y-6 p-6 border rounded-lg bg-white shadow-lg 
+                 animate-fade-in-down"
+    >
       <div className="text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">
+        <h1
+          className="text-3xl font-bold tracking-tight text-foreground 
+                     animate-slide-in"
+        >
           Sign in to your account
         </h1>
-        <p className="mt-2">
-          Don't have an account
+        <p className="mt-2 text-gray-600">
+          Don't have an account?
           <Link
-            className="font-medium ml-2 text-primary hover:underline"
+            className="font-medium ml-2 text-primary hover:underline 
+                       transition-transform duration-300 hover:scale-105"
             to="/auth/register"
           >
             Register
