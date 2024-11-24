@@ -95,6 +95,8 @@ module.exports = {
         "slide-in": "slideIn 0.7s ease-out",
         "fade-in": "fadeIn 1.5s ease-in-out", // For header fade-in effect
         "spin-slow": "spinSlow 10s linear infinite",
+        "fade-in-down": "fadeInDown 1s ease-out",
+        "slide-in": "slideIn 0.5s ease-out",
       },
     },
   },

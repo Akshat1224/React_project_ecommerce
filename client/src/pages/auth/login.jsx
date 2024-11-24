@@ -41,11 +41,16 @@ function AuthLogin() {
         <div className="absolute w-64 h-64 bg-green-400 opacity-30 rounded-full animate-spin-slow bottom-10 right-10"></div>
       </div>
 
+      {/* Full-Screen Background on the Left */}
+      <div className="absolute inset-0 flex items-center justify-center z-0">
+        <div className="hidden sm:block w-1/2 h-full bg-gradient-to-br from-blue-500 via-indigo-400 to-pink-500"></div>
+      </div>
+
       {/* Login Form */}
       <div
         className="relative z-10 mx-auto w-full max-w-md p-8 space-y-6 bg-white 
                    rounded-lg shadow-xl border border-gray-200 backdrop-blur-sm 
-                   animate-fade-in-down"
+                   animate-fade-in-down transition-all duration-500"
       >
         <div className="text-center">
           <h1
