@@ -34,8 +34,8 @@ function AuthLogin() {
   }
 
   return (
-    <div className="relative flex min-h-screen bg-gradient-to-r from-indigo-600 via-blue-500 to-blue-300">
-      {/* Left Section */}
+    <div className="relative flex min-h-screen">
+      {/* Left Section: Welcome Message */}
       <div className="flex-1 flex items-center justify-center px-12 py-24 bg-gradient-to-r from-blue-500 to-purple-600 text-white">
         <div className="text-center animate-fade-in">
           <h1 className="text-5xl font-bold tracking-tight mb-6 animate-slide-in">Welcome to ShoeShopAwesome!</h1>

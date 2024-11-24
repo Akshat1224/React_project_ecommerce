@@ -65,5 +65,9 @@
   }
   body {
     @apply bg-background text-foreground;
+    margin: 0; /* Remove default margins */
+  }
+  .container {
+    margin: 0;
   }
 }
