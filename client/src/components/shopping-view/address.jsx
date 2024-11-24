@@ -110,27 +110,21 @@ function Address({ setCurrentSelectedAddress, selectedId }) {
             />
           ))
         ) : (
-          <p className="col-span-2 text-center text-gray-500">
-            No addresses available. Please add one.
-          </p>
+          <p className="col-span-2 text-center text-gray-500">No Addresses Found</p>
         )}
       </div>
 
-      <CardHeader className="mb-4 border-b pb-4">
-        <CardTitle className="text-2xl font-bold text-gray-800">
-          {currentEditedId !== null ? "Edit Address" : "Add New Address"}
-        </CardTitle>
+      <CardHeader>
+        <CardTitle>Add/Update Address</CardTitle>
       </CardHeader>
-
       <CardContent>
         <CommonForm
           formControls={addressFormControls}
           formData={formData}
           setFormData={setFormData}
-          buttonText={currentEditedId !== null ? "Update Address" : "Add Address"}
           onSubmit={handleManageAddress}
+          buttonText="Submit"
           isBtnDisabled={!isFormValid()}
-          className="space-y-6"
         />
       </CardContent>
     </Card>

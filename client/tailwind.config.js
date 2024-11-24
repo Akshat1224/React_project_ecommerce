@@ -51,6 +51,11 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Custom colors for your theme
+        "primary-dark": "#2563eb", // Dark primary color for hover/active states
+        "gradient-start": "#4f46e5", // Start color for gradient
+        "gradient-end": "#3b82f6", // End color for gradient
+        "background-light": "#f8fafc", // Light background color
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -74,6 +79,10 @@ module.exports = {
           "0%": { opacity: 0, transform: "translateX(-20px)" },
           "100%": { opacity: 1, transform: "translateX(0)" },
         },
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
         spinSlow: {
           from: { transform: "rotate(0deg)" },
           to: { transform: "rotate(360deg)" },
@@ -84,6 +93,7 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in-down": "fadeInDown 0.5s ease-out",
         "slide-in": "slideIn 0.7s ease-out",
+        "fade-in": "fadeIn 1.5s ease-in-out", // For header fade-in effect
         "spin-slow": "spinSlow 10s linear infinite",
       },
     },
