@@ -34,49 +34,41 @@ function AuthLogin() {
   }
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
-      {/* Background Circles */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute w-80 h-80 bg-blue-500 opacity-40 rounded-full animate-pulse top-20 left-20"></div>
-        <div className="absolute w-64 h-64 bg-green-400 opacity-30 rounded-full animate-spin-slow bottom-10 right-10"></div>
-      </div>
-
-      {/* Full-Screen Background on the Left */}
-      <div className="absolute inset-0 flex items-center justify-center z-0">
-        <div className="hidden sm:block w-1/2 h-full bg-gradient-to-br from-blue-500 via-indigo-400 to-pink-500"></div>
-      </div>
-
-      {/* Login Form */}
-      <div
-        className="relative z-10 mx-auto w-full max-w-md p-8 space-y-6 bg-white 
-                   rounded-lg shadow-xl border border-gray-200 backdrop-blur-sm 
-                   animate-fade-in-down transition-all duration-500"
-      >
-        <div className="text-center">
-          <h1
-            className="text-3xl font-extrabold tracking-tight text-gray-800 
-                       animate-slide-in"
-          >
-            Welcome Back!
-          </h1>
-          <p className="mt-2 text-gray-600">
-            Don't have an account?{" "}
-            <Link
-              className="ml-2 font-medium text-primary hover:underline 
-                         transition-transform duration-300 hover:scale-105"
-              to="/auth/register"
-            >
-              Register
-            </Link>
+    <div className="relative flex min-h-screen bg-gradient-to-r from-indigo-600 via-blue-500 to-blue-300">
+      {/* Left Section */}
+      <div className="flex-1 flex items-center justify-center px-12 py-24 bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+        <div className="text-center animate-fade-in">
+          <h1 className="text-5xl font-bold tracking-tight mb-6 animate-slide-in">Welcome to ShoeShopAwesome!</h1>
+          <p className="text-lg opacity-80">
+            Explore the best collection of shoes. Your perfect pair is just a click away.
           </p>
         </div>
-        <CommonForm
-          formControls={loginFormControls}
-          buttonText={"Sign In"}
-          formData={formData}
-          setFormData={setFormData}
-          onSubmit={onSubmit}
-        />
+      </div>
+
+      {/* Right Section: Login Form */}
+      <div className="flex-1 flex items-center justify-center p-8 bg-white rounded-lg shadow-xl border-l-4 border-gray-200 backdrop-blur-lg">
+        <div className="w-full max-w-md space-y-6">
+          <div className="text-center mb-4">
+            <h2 className="text-3xl font-extrabold text-gray-800 mb-2">Sign In</h2>
+            <p className="text-sm text-gray-600">
+              Don't have an account?{" "}
+              <Link
+                className="font-medium text-primary hover:underline"
+                to="/auth/register"
+              >
+                Register here
+              </Link>
+            </p>
+          </div>
+
+          <CommonForm
+            formControls={loginFormControls}
+            buttonText={"Sign In"}
+            formData={formData}
+            setFormData={setFormData}
+            onSubmit={onSubmit}
+          />
+        </div>
       </div>
     </div>
   );
