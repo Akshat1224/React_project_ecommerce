@@ -24,43 +24,50 @@ function ShoppingCheckout() {
       )
     : 0;
 
-  const handleInitiatePaypalPayment = () => {
-    if (!cartItems?.items?.length) {
-      toast({
-        title: "Your cart is empty. Please add items to proceed.",
-        variant: "destructive",
-      });
-      return;
-    }
-    if (!currentSelectedAddress) {
-      toast({
-        title: "Please select an address to proceed.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    const orderData = {
-      userId: user.id,
-      cartId: cartItems._id,
-      cartItems: cartItems.items.map((item) => ({
-        productId: item.productId,
-        title: item.title,
-        price: item.salePrice || item.price,
-        quantity: item.quantity,
-      })),
-      addressInfo: { ...currentSelectedAddress },
-      totalAmount: totalCartAmount,
-    };
-
-    dispatch(createNewOrder(orderData)).then((response) => {
-      if (response.payload.success) {
-        window.location.href = approvalURL;
-      } else {
-        toast({ title: "Payment initiation failed.", variant: "destructive" });
+    const handleInitiatePaypalPayment = () => {
+      if (!cartItems?.items?.length) {
+        toast({
+          title: "Your cart is empty. Please add items to proceed.",
+          variant: "destructive",
+        });
+        return;
       }
-    });
-  };
+      if (!currentSelectedAddress) {
+        toast({
+          title: "Please select an address to proceed.",
+          variant: "destructive",
+        });
+        return;
+      }
+    
+      const orderData = {
+        userId: user.id,
+        cartId: cartItems._id,
+        cartItems: cartItems.items.map((item) => ({
+          productId: item.productId,
+          title: item.title,
+          price: item.salePrice || item.price,
+          quantity: item.quantity,
+        })),
+        addressInfo: { ...currentSelectedAddress },
+        totalAmount: totalCartAmount,
+      };
+    
+      dispatch(createNewOrder(orderData)).then((response) => {
+        if (response.payload.success) {
+          // Check if approvalURL is available before redirecting
+          const approvalURL = response.payload.approvalURL;
+          if (approvalURL) {
+            window.location.href = approvalURL;  // Redirect only if URL is available
+          } else {
+            toast({ title: "Payment initiation failed.", variant: "destructive" });
+          }
+        } else {
+          toast({ title: "Payment initiation failed.", variant: "destructive" });
+        }
+      });
+    };
+    
 
   return (
     <div className="flex flex-col">
