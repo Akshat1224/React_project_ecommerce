@@ -9,7 +9,10 @@ import {
   ChevronRightIcon,
   CloudLightning,
   Heater,
+  Images,
+  Shirt,
   ShirtIcon,
+  ShoppingBasket,
   UmbrellaIcon,
   WashingMachine,
   WatchIcon,
@@ -37,36 +40,12 @@ const categoriesWithIcon = [
 ];
 
 const brandsWithIcon = [
-  {
-    id: "nike",
-    label: "Nike",
-    icon: "/assets/brands/nike-logo.png", // Update with your asset path
-  },
-  {
-    id: "adidas",
-    label: "Adidas",
-    icon: "/assets/brands/adidas-logo.png",
-  },
-  {
-    id: "puma",
-    label: "Puma",
-    icon: "/assets/brands/puma-logo.png",
-  },
-  {
-    id: "levi",
-    label: "Levi's",
-    icon: "/assets/brands/levis-logo.png",
-  },
-  {
-    id: "zara",
-    label: "Zara",
-    icon: "/assets/brands/zara-logo.png",
-  },
-  {
-    id: "h&m",
-    label: "H&M",
-    icon: "/assets/brands/hm-logo.png",
-  },
+  { id: "nike", label: "Nike", icon: Shirt },
+  { id: "adidas", label: "Adidas", icon: WashingMachine },
+  { id: "puma", label: "Puma", icon: ShoppingBasket },
+  { id: "levi", label: "Levi's", icon: Airplay },
+  { id: "zara", label: "Zara", icon: Images },
+  { id: "h&m", label: "H&M", icon: Heater },
 ];
 
 function ShoppingHome() {
@@ -163,7 +142,7 @@ function ShoppingHome() {
                 (prevSlide - 1 + featureImageList.length) % featureImageList.length
             )
           }
-          className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/80 transition-transform hover:scale-110 shadow-lg"
+          className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/80 transition-transform hover:scale-110 shadow-lg animate-bounce"
         >
           <ChevronLeftIcon className="w-4 h-4" />
         </Button>
@@ -175,7 +154,7 @@ function ShoppingHome() {
               (prevSlide) => (prevSlide + 1) % featureImageList.length
             )
           }
-          className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/80 transition-transform hover:scale-110 shadow-lg"
+          className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/80 transition-transform hover:scale-110 shadow-lg animate-bounce"
         >
           <ChevronRightIcon className="w-4 h-4" />
         </Button>
@@ -183,15 +162,17 @@ function ShoppingHome() {
 
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">Shop by Category</h2>
+          <h2 className="text-3xl font-bold text-center mb-8 animate-fade-in">
+            Shop by Category
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {categoriesWithIcon.map((categoryItem) => (
               <Card
                 onClick={() => handleNavigateToListingPage(categoryItem, "category")}
-                className="cursor-pointer hover:shadow-xl transition-transform transform hover:scale-105 ease-in-out duration-300"
+                className="cursor-pointer hover:shadow-xl transition-transform transform hover:scale-105 ease-in-out duration-300 animate-bounce"
               >
                 <CardContent className="flex flex-col items-center justify-center p-6">
-                  <categoryItem.icon className="w-12 h-12 mb-4 text-primary hover:text-indigo-600 transition-transform hover:scale-110" />
+                  <categoryItem.icon className="w-12 h-12 mb-4 text-primary transition-transform hover:scale-110" />
                   <span className="font-bold text-gray-700">{categoryItem.label}</span>
                 </CardContent>
               </Card>
@@ -202,19 +183,17 @@ function ShoppingHome() {
 
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">Shop by Brand</h2>
+          <h2 className="text-3xl font-bold text-center mb-8 animate-fade-in">
+            Shop by Brand
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {brandsWithIcon.map((brandItem) => (
               <Card
                 onClick={() => handleNavigateToListingPage(brandItem, "brand")}
-                className="cursor-pointer hover:shadow-xl transition-transform transform hover:scale-105 ease-in-out duration-300"
+                className="cursor-pointer hover:shadow-xl transition-transform transform hover:scale-105 ease-in-out duration-300 animate-bounce"
               >
                 <CardContent className="flex flex-col items-center justify-center p-6">
-                  <img
-                    src={brandItem.icon}
-                    alt={brandItem.label}
-                    className="w-12 h-12 mb-4"
-                  />
+                  <brandItem.icon className="w-12 h-12 mb-4 text-primary transition-transform hover:scale-110" />
                   <span className="font-bold text-gray-700">{brandItem.label}</span>
                 </CardContent>
               </Card>
@@ -225,7 +204,9 @@ function ShoppingHome() {
 
       <section className="py-12">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">Featured Products</h2>
+          <h2 className="text-3xl font-bold text-center mb-8 animate-fade-in">
+            Featured Products
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {productList && productList.length > 0
               ? productList.map((productItem) => (
@@ -245,7 +226,7 @@ function ShoppingHome() {
         <ProductDetailsDialog
           product={productDetails}
           open={openDetailsDialog}
-          setOpen={setOpenDetailsDialog}
+          onClose={() => setOpenDetailsDialog(false)}
         />
       )}
     </div>
