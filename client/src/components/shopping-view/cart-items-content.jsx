@@ -1,4 +1,4 @@
-import { Minus, Plus, Trash } from "lucide-react";
+import { MinusCircle, PlusCircle, Trash2 } from "lucide-react"; // Updated icons
 import { Button } from "../ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCartItem, updateCartQuantity } from "@/store/shop/cart-slice";
@@ -25,16 +25,13 @@ function UserCartItemsContent({ cartItem }) {
         );
         const getTotalStock = productList[getCurrentProductIndex].totalStock;
 
-        console.log(getCurrentProductIndex, getTotalStock, "getTotalStock");
-
         if (indexOfCurrentCartItem > -1) {
           const getQuantity = getCartItems[indexOfCurrentCartItem].quantity;
           if (getQuantity + 1 > getTotalStock) {
             toast({
-              title: `Only ${getQuantity} quantity can be added for this item`,
+              title: `Only ${getTotalStock} items in stock.`,
               variant: "destructive",
             });
-
             return;
           }
         }
@@ -53,7 +50,7 @@ function UserCartItemsContent({ cartItem }) {
     ).then((data) => {
       if (data?.payload?.success) {
         toast({
-          title: "Cart item is updated successfully",
+          title: "Cart item updated successfully.",
         });
       }
     });
@@ -65,56 +62,68 @@ function UserCartItemsContent({ cartItem }) {
     ).then((data) => {
       if (data?.payload?.success) {
         toast({
-          title: "Cart item is deleted successfully",
+          title: "Cart item deleted successfully.",
         });
       }
     });
   }
 
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+      {/* Image with hover effect */}
       <img
         src={cartItem?.image}
         alt={cartItem?.title}
-        className="w-20 h-20 rounded object-cover"
+        className="w-20 h-20 rounded-lg object-cover transform hover:scale-105 transition-transform duration-300"
       />
+
+      {/* Product details */}
       <div className="flex-1">
-        <h3 className="font-extrabold">{cartItem?.title}</h3>
-        <div className="flex items-center gap-2 mt-1">
+        <h3 className="font-extrabold text-gray-800">{cartItem?.title}</h3>
+        <div className="flex items-center gap-2 mt-2">
+          {/* Decrease Quantity Button */}
           <Button
             variant="outline"
-            className="h-8 w-8 rounded-full"
+            className="h-8 w-8 rounded-full border border-gray-300 hover:border-red-400 transition-colors duration-200"
             size="icon"
             disabled={cartItem?.quantity === 1}
             onClick={() => handleUpdateQuantity(cartItem, "minus")}
           >
-            <Minus className="w-4 h-4" />
+            <MinusCircle className="w-5 h-5 text-gray-600 hover:text-red-400" />
             <span className="sr-only">Decrease</span>
           </Button>
-          <span className="font-semibold">{cartItem?.quantity}</span>
+
+          {/* Quantity */}
+          <span className="font-semibold text-gray-800">{cartItem?.quantity}</span>
+
+          {/* Increase Quantity Button */}
           <Button
             variant="outline"
-            className="h-8 w-8 rounded-full"
+            className="h-8 w-8 rounded-full border border-gray-300 hover:border-green-400 transition-colors duration-200"
             size="icon"
             onClick={() => handleUpdateQuantity(cartItem, "plus")}
           >
-            <Plus className="w-4 h-4" />
-            <span className="sr-only">Decrease</span>
+            <PlusCircle className="w-5 h-5 text-gray-600 hover:text-green-400" />
+            <span className="sr-only">Increase</span>
           </Button>
         </div>
       </div>
+
+      {/* Price and Delete Button */}
       <div className="flex flex-col items-end">
-        <p className="font-semibold">
+        <p className="font-semibold text-gray-800">
           $
           {(
             (cartItem?.salePrice > 0 ? cartItem?.salePrice : cartItem?.price) *
             cartItem?.quantity
           ).toFixed(2)}
         </p>
-        <Trash
+
+        {/* Delete Button */}
+        <Trash2
           onClick={() => handleCartItemDelete(cartItem)}
-          className="cursor-pointer mt-1"
-          size={20}
+          className="cursor-pointer mt-2 text-gray-600 hover:text-red-500 transition-colors duration-200"
+          size={24}
         />
       </div>
     </div>
