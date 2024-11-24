@@ -6,33 +6,33 @@ import UserCartItemsContent from "./cart-items-content";
 function UserCartWrapper({ cartItems, setOpenCartSheet }) {
   const navigate = useNavigate();
 
-  const totalCartAmount =
-    cartItems && cartItems.length > 0
-      ? cartItems.reduce(
-          (sum, currentItem) =>
-            sum +
-            (currentItem?.salePrice > 0
-              ? currentItem?.salePrice
-              : currentItem?.price) *
-              currentItem?.quantity,
-          0
-        )
-      : 0;
+  const totalCartAmount = cartItems?.length
+    ? cartItems.reduce(
+        (sum, currentItem) =>
+          sum +
+          (currentItem.salePrice || currentItem.price) * currentItem.quantity,
+        0
+      )
+    : 0;
 
   return (
-    <SheetContent className="sm:max-w-md">
+    <SheetContent className="sm:max-w-md p-6 bg-white shadow-lg rounded-lg">
       <SheetHeader>
-        <SheetTitle>Your Cart</SheetTitle>
+        <SheetTitle className="text-xl font-semibold">Your Cart</SheetTitle>
       </SheetHeader>
-      <div className="mt-8 space-y-4">
-        {cartItems && cartItems.length > 0
-          ? cartItems.map((item) => <UserCartItemsContent cartItem={item} />)
-          : null}
+      <div className="mt-4 space-y-6">
+        {cartItems?.length > 0 ? (
+          cartItems.map((item) => (
+            <UserCartItemsContent key={item.id} cartItem={item} />
+          ))
+        ) : (
+          <div className="text-gray-500 text-center">Your cart is empty!</div>
+        )}
       </div>
-      <div className="mt-8 space-y-4">
-        <div className="flex justify-between">
-          <span className="font-bold">Total</span>
-          <span className="font-bold">${totalCartAmount}</span>
+      <div className="mt-8">
+        <div className="flex justify-between text-lg font-medium">
+          <span>Total:</span>
+          <span>${totalCartAmount.toFixed(2)}</span>
         </div>
       </div>
       <Button
@@ -40,7 +40,7 @@ function UserCartWrapper({ cartItems, setOpenCartSheet }) {
           navigate("/shop/checkout");
           setOpenCartSheet(false);
         }}
-        className="w-full mt-6"
+        className="w-full mt-6 bg-primary hover:bg-primary-dark"
       >
         Checkout
       </Button>
