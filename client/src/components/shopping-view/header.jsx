@@ -88,7 +88,7 @@ function HeaderRightContent() {
           size="icon"
           className="relative hover:scale-110 transition-all duration-300"
         >
-          <ShoppingCart className="w-6 h-6 text-white" />
+          <ShoppingCart className="w-6 h-6 text-red-500" />
           <span className="absolute top-[-5px] right-[2px] font-bold text-sm text-white">
             {cartItems?.items?.length || 0}
           </span>
