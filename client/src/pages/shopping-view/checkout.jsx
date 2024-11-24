@@ -72,7 +72,7 @@ function ShoppingCheckout() {
           selectedId={currentSelectedAddress}
           setCurrentSelectedAddress={setCurrentSelectedAddress}
         />
-        <div>
+        <div className="p-4 bg-white rounded-lg shadow-lg">
           <div className="space-y-6">
             {cartItems?.items?.map((item) => (
               <UserCartItemsContent key={item.id} cartItem={item} />
@@ -84,7 +84,7 @@ function ShoppingCheckout() {
           </div>
           <Button
             onClick={handleInitiatePaypalPayment}
-            className="w-full mt-6 bg-primary hover:bg-primary-dark"
+            className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white"
           >
             Checkout with Paypal
           </Button>
