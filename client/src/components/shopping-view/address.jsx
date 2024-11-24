@@ -96,8 +96,8 @@ function Address({ setCurrentSelectedAddress, selectedId }) {
   }
 
   return (
-    <Card className="p-6 bg-gray-50 shadow-md rounded-lg">
-      <div className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+    <Card className="p-8 bg-white shadow-xl rounded-3xl border border-gray-200">
+      <div className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-6">
         {addressList?.length > 0 ? (
           addressList.map((singleAddressItem) => (
             <AddressCard
@@ -117,7 +117,7 @@ function Address({ setCurrentSelectedAddress, selectedId }) {
       </div>
 
       <CardHeader className="mb-4 border-b pb-4">
-        <CardTitle className="text-xl font-semibold text-gray-700">
+        <CardTitle className="text-2xl font-bold text-gray-800">
           {currentEditedId !== null ? "Edit Address" : "Add New Address"}
         </CardTitle>
       </CardHeader>
@@ -130,7 +130,7 @@ function Address({ setCurrentSelectedAddress, selectedId }) {
           buttonText={currentEditedId !== null ? "Update Address" : "Add Address"}
           onSubmit={handleManageAddress}
           isBtnDisabled={!isFormValid()}
-          className="space-y-4"
+          className="space-y-6"
         />
       </CardContent>
     </Card>
