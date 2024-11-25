@@ -18,13 +18,8 @@ function ProductImageUpload({
 }) {
   const inputRef = useRef(null);
 
-  console.log(isEditMode, "isEditMode");
-
   function handleImageFileChange(event) {
-    console.log(event.target.files, "event.target.files");
     const selectedFile = event.target.files?.[0];
-    console.log(selectedFile);
-
     if (selectedFile) setImageFile(selectedFile);
   }
 
@@ -53,7 +48,6 @@ function ProductImageUpload({
       "https://react-project-ecommerce.onrender.com/api/admin/products/upload-image",
       data
     );
-    console.log(response, "response");
 
     if (response?.data?.success) {
       setUploadedImageUrl(response.data.result.url);
@@ -67,15 +61,19 @@ function ProductImageUpload({
 
   return (
     <div
-      className={`w-full  mt-4 ${isCustomStyling ? "" : "max-w-md mx-auto"}`}
+      className={`w-full mt-6 ${isCustomStyling ? "" : "max-w-md mx-auto"} 
+      bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 p-4 rounded-lg shadow-md`}
     >
-      <Label className="text-lg font-semibold mb-2 block">Upload Image</Label>
+      <Label className="text-lg font-semibold mb-4 block text-gray-700">
+        Upload Image
+      </Label>
       <div
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         className={`${
-          isEditMode ? "opacity-60" : ""
-        } border-2 border-dashed rounded-lg p-4`}
+          isEditMode ? "opacity-60 cursor-not-allowed" : "cursor-pointer"
+        } border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center
+        transition-transform duration-300 hover:scale-105 hover:border-indigo-500`}
       >
         <Input
           id="image-upload"
@@ -88,28 +86,28 @@ function ProductImageUpload({
         {!imageFile ? (
           <Label
             htmlFor="image-upload"
-            className={`${
-              isEditMode ? "cursor-not-allowed" : ""
-            } flex flex-col items-center justify-center h-32 cursor-pointer`}
+            className="flex flex-col items-center text-gray-500"
           >
-            <UploadCloudIcon className="w-10 h-10 text-muted-foreground mb-2" />
-            <span>Drag & drop or click to upload image</span>
+            <UploadCloudIcon className="w-12 h-12 mb-2 text-gray-400 animate-bounce" />
+            <span className="text-sm">Drag & drop or click to upload image</span>
           </Label>
         ) : imageLoadingState ? (
-          <Skeleton className="h-10 bg-gray-100" />
+          <Skeleton className="w-full h-10 bg-gray-200 animate-pulse rounded-lg" />
         ) : (
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between w-full">
             <div className="flex items-center">
-              <FileIcon className="w-8 text-primary mr-2 h-8" />
+              <FileIcon className="w-8 h-8 text-indigo-500 mr-3" />
+              <p className="text-sm font-medium text-gray-700">
+                {imageFile.name}
+              </p>
             </div>
-            <p className="text-sm font-medium">{imageFile.name}</p>
             <Button
               variant="ghost"
               size="icon"
-              className="text-muted-foreground hover:text-foreground"
+              className="text-gray-500 hover:text-gray-900"
               onClick={handleRemoveImage}
             >
-              <XIcon className="w-4 h-4" />
+              <XIcon className="w-5 h-5" />
               <span className="sr-only">Remove File</span>
             </Button>
           </div>
