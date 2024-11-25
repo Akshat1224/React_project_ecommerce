@@ -34,28 +34,38 @@ function AuthLogin() {
   }
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center p-8 bg-white rounded-lg shadow-xl border-gray-200 backdrop-blur-lg">
-      <div className="w-full max-w-md space-y-6">
-        <div className="text-center mb-4">
-          <h2 className="text-3xl font-extrabold text-gray-800 mb-2">Sign In</h2>
-          <p className="text-sm text-gray-600">
-            Don't have an account?{" "}
-            <Link
-              className="font-medium text-primary hover:underline"
-              to="/auth/register"
-            >
-              Register here
-            </Link>
-          </p>
-        </div>
+    <div className="relative flex min-h-screen bg-gradient-to-r from-gray-100 to-gray-200">
+      {/* Left Section */}
+      <div className="w-1/2 flex items-center justify-center bg-white p-8 shadow-xl">
+        <div className="w-full max-w-md space-y-6">
+          <div className="text-center mb-4">
+            <h2 className="text-3xl font-extrabold text-gray-800 mb-2">Sign In</h2>
+            <p className="text-sm text-gray-600">
+              Don't have an account?{" "}
+              <Link
+                className="font-medium text-primary hover:underline"
+                to="/auth/register"
+              >
+                Register here
+              </Link>
+            </p>
+          </div>
 
-        <CommonForm
-          formControls={loginFormControls}
-          buttonText={"Sign In"}
-          formData={formData}
-          setFormData={setFormData}
-          onSubmit={onSubmit}
-        />
+          <CommonForm
+            formControls={loginFormControls}
+            buttonText={"Sign In"}
+            formData={formData}
+            setFormData={setFormData}
+            onSubmit={onSubmit}
+          />
+        </div>
+      </div>
+
+      {/* Right Section */}
+      <div className="w-1/2 flex items-center justify-center bg-black text-white relative">
+        <h1 className="text-4xl font-bold animate-bounce text-center">
+          Welcome to ShoeShopAwesome
+        </h1>
       </div>
     </div>
   );

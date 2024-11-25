@@ -17,6 +17,7 @@ function CommonForm({
   onSubmit,
   buttonText,
   isBtnDisabled,
+  errors = {}, // Accept errors for validation feedback
 }) {
   function renderInputsByComponentType(getControlItem) {
     let element = null;
@@ -37,7 +38,7 @@ function CommonForm({
                 [getControlItem.name]: event.target.value,
               })
             }
-            className="px-4 py-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="px-4 py-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-transform duration-200 focus:scale-105"
           />
         );
         break;
@@ -51,7 +52,7 @@ function CommonForm({
               })
             }
             value={value}
-            className="w-full p-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform duration-200 focus:scale-105"
           >
             <SelectTrigger className="w-full">
               <SelectValue placeholder={getControlItem.label} />
@@ -81,7 +82,7 @@ function CommonForm({
                 [getControlItem.name]: event.target.value,
               })
             }
-            className="p-4 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-4 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform duration-200 focus:scale-105"
           />
         );
         break;
@@ -100,21 +101,33 @@ function CommonForm({
                 [getControlItem.name]: event.target.value,
               })
             }
-            className="px-4 py-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="px-4 py-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-transform duration-200 focus:scale-105"
           />
         );
         break;
     }
 
-    return element;
+    return (
+      <div className="flex flex-col gap-2">
+        {element}
+        {errors[getControlItem.name] && (
+          <p className="text-sm text-red-500">{errors[getControlItem.name]}</p>
+        )}
+      </div>
+    );
   }
 
   return (
-    <form onSubmit={onSubmit} className="bg-gradient-to-r from-blue-100 to-blue-300 p-6 rounded-lg shadow-md">
+    <form
+      onSubmit={onSubmit}
+      className="bg-gradient-to-r from-blue-100 to-blue-300 p-6 rounded-lg shadow-md"
+    >
       <div className="flex flex-col gap-5">
         {formControls.map((controlItem) => (
           <div className="grid w-full gap-2" key={controlItem.name}>
-            <Label className="text-sm font-semibold text-gray-700">{controlItem.label}</Label>
+            <Label className="text-sm font-semibold text-gray-700">
+              {controlItem.label}
+            </Label>
             {renderInputsByComponentType(controlItem)}
           </div>
         ))}
@@ -122,7 +135,7 @@ function CommonForm({
       <Button
         disabled={isBtnDisabled}
         type="submit"
-        className="mt-4 w-full py-2 px-4 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="mt-4 w-full py-2 px-4 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform duration-200 hover:scale-105"
       >
         {buttonText || "Submit"}
       </Button>
