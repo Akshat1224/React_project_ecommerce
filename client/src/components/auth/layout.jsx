@@ -12,7 +12,7 @@ function AuthLayout() {
       <div className="hidden lg:flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 w-1/2 px-12">
         <div className="max-w-md space-y-6 text-center text-white">
           <h1 className="text-4xl font-extrabold tracking-tight animate-bounce">
-            Welcome to E-commerce
+            Hi, Welcome To ShoeShopAwesome
           </h1>
         </div>
       </div>
