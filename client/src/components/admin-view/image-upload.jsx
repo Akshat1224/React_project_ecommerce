@@ -89,7 +89,7 @@ function ProductImageUpload({
             className="flex flex-col items-center text-gray-500"
           >
             <UploadCloudIcon className="w-12 h-12 mb-2 text-gray-400 animate-bounce" />
-            <span className="text-sm">Drag & drop or click to upload image</span>
+            <span className="text-sm">Upload Your Image Here</span>
           </Label>
         ) : imageLoadingState ? (
           <Skeleton className="w-full h-10 bg-gray-200 animate-pulse rounded-lg" />
