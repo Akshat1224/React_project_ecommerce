@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import ShoppingHeader from "./header";
+import AiChatWidget from "./chat/ai-chat-widget";
 
 function ShoppingLayout() {
   return (
@@ -9,6 +10,7 @@ function ShoppingLayout() {
       <main className="flex flex-col w-full">
         <Outlet />
       </main>
+      <AiChatWidget />
     </div>
   );
 }

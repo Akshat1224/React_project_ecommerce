@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_BASE_URL } from "@/lib/api";
 
 const initialState = {
   isLoading: false,
@@ -10,46 +11,46 @@ export const addNewAddress = createAsyncThunk(
   "/addresses/addNewAddress",
   async (formData) => {
     const response = await axios.post(
-      "https://react-project-ecommerce.onrender.com/api/shop/address/add",
-      formData
+      `${API_BASE_URL}/shop/address/add`,
+      formData,
     );
 
     return response.data;
-  }
+  },
 );
 
 export const fetchAllAddresses = createAsyncThunk(
   "/addresses/fetchAllAddresses",
   async (userId) => {
     const response = await axios.get(
-      `https://react-project-ecommerce.onrender.com/api/shop/address/get/${userId}`
+      `${API_BASE_URL}/shop/address/get/${userId}`,
     );
 
     return response.data;
-  }
+  },
 );
 
 export const editaAddress = createAsyncThunk(
   "/addresses/editaAddress",
   async ({ userId, addressId, formData }) => {
     const response = await axios.put(
-      `https://react-project-ecommerce.onrender.com/api/shop/address/update/${userId}/${addressId}`,
-      formData
+      `${API_BASE_URL}/shop/address/update/${userId}/${addressId}`,
+      formData,
     );
 
     return response.data;
-  }
+  },
 );
 
 export const deleteAddress = createAsyncThunk(
   "/addresses/deleteAddress",
   async ({ userId, addressId }) => {
     const response = await axios.delete(
-      `https://react-project-ecommerce.onrender.com/api/shop/address/delete/${userId}/${addressId}`
+      `${API_BASE_URL}/shop/address/delete/${userId}/${addressId}`,
     );
 
     return response.data;
-  }
+  },
 );
 
 const addressSlice = createSlice({

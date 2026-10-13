@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_BASE_URL } from "@/lib/api";
 
 const initialState = {
   approvalURL: null,
@@ -13,50 +14,47 @@ export const createNewOrder = createAsyncThunk(
   "/order/createNewOrder",
   async (orderData) => {
     const response = await axios.post(
-      "https://react-project-ecommerce.onrender.com/api/shop/order/create",
-      orderData
+      `${API_BASE_URL}/shop/order/create`,
+      orderData,
     );
 
     return response.data;
-  }
+  },
 );
 
 export const capturePayment = createAsyncThunk(
   "/order/capturePayment",
   async ({ paymentId, payerId, orderId }) => {
-    const response = await axios.post(
-      "https://react-project-ecommerce.onrender.com/api/shop/order/capture",
-      {
-        paymentId,
-        payerId,
-        orderId,
-      }
-    );
+    const response = await axios.post(`${API_BASE_URL}/shop/order/capture`, {
+      paymentId,
+      payerId,
+      orderId,
+    });
 
     return response.data;
-  }
+  },
 );
 
 export const getAllOrdersByUserId = createAsyncThunk(
   "/order/getAllOrdersByUserId",
   async (userId) => {
     const response = await axios.get(
-      `https://react-project-ecommerce.onrender.com/api/shop/order/list/${userId}`
+      `${API_BASE_URL}/shop/order/list/${userId}`,
     );
 
     return response.data;
-  }
+  },
 );
 
 export const getOrderDetails = createAsyncThunk(
   "/order/getOrderDetails",
   async (id) => {
     const response = await axios.get(
-      `https://react-project-ecommerce.onrender.com/api/shop/order/details/${id}`
+      `${API_BASE_URL}/shop/order/details/${id}`,
     );
 
     return response.data;
-  }
+  },
 );
 
 const shoppingOrderSlice = createSlice({
@@ -78,7 +76,7 @@ const shoppingOrderSlice = createSlice({
         state.orderId = action.payload.orderId;
         sessionStorage.setItem(
           "currentOrderId",
-          JSON.stringify(action.payload.orderId)
+          JSON.stringify(action.payload.orderId),
         );
       })
       .addCase(createNewOrder.rejected, (state) => {

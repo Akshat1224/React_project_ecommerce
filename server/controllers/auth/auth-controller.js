@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
+const JWT_SECRET = process.env.JWT_SECRET || "CLIENT_SECRET_KEY";
 
 //register
 const registerUser = async (req, res) => {
@@ -49,7 +50,7 @@ const loginUser = async (req, res) => {
 
     const checkPasswordMatch = await bcrypt.compare(
       password,
-      checkUser.password
+      checkUser.password,
     );
     if (!checkPasswordMatch)
       return res.json({
@@ -64,8 +65,8 @@ const loginUser = async (req, res) => {
         email: checkUser.email,
         userName: checkUser.userName,
       },
-      "CLIENT_SECRET_KEY",
-      { expiresIn: "60m" }
+      JWT_SECRET,
+      { expiresIn: "60m" },
     );
 
     res.cookie("token", token, { httpOnly: true, secure: false }).json({
@@ -106,7 +107,7 @@ const authMiddleware = async (req, res, next) => {
     });
 
   try {
-    const decoded = jwt.verify(token, "CLIENT_SECRET_KEY");
+    const decoded = jwt.verify(token, JWT_SECRET);
     req.user = decoded;
     next();
   } catch (error) {

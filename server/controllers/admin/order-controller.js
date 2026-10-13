@@ -1,4 +1,13 @@
 const Order = require("../../models/Order");
+const { publishOrderStatusUpdate } = require("../../services/order-notifier");
+const ALLOWED_ORDER_STATUSES = new Set([
+  "pending",
+  "confirmed",
+  "inProcess",
+  "inShipping",
+  "delivered",
+  "rejected",
+]);
 
 const getAllOrdersOfAllUsers = async (req, res) => {
   try {
@@ -55,6 +64,13 @@ const updateOrderStatus = async (req, res) => {
     const { id } = req.params;
     const { orderStatus } = req.body;
 
+    if (!ALLOWED_ORDER_STATUSES.has(orderStatus)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid order status!",
+      });
+    }
+
     const order = await Order.findById(id);
 
     if (!order) {
@@ -64,11 +80,24 @@ const updateOrderStatus = async (req, res) => {
       });
     }
 
-    await Order.findByIdAndUpdate(id, { orderStatus });
+    if (order.orderStatus === orderStatus) {
+      return res.status(200).json({
+        success: true,
+        message: "Order status is unchanged.",
+        data: order,
+      });
+    }
+
+    order.orderStatus = orderStatus;
+    order.orderUpdateDate = new Date();
+    await order.save();
+
+    publishOrderStatusUpdate(order._id, order.userId).catch(() => {});
 
     res.status(200).json({
       success: true,
       message: "Order status is updated successfully!",
+      data: order,
     });
   } catch (e) {
     console.log(e);

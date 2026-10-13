@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { API_BASE_URL } from "@/lib/api";
 
 const initialState = {
   cartItems: [],
@@ -9,55 +10,47 @@ const initialState = {
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
   async ({ userId, productId, quantity }) => {
-    const response = await axios.post(
-      "https://react-project-ecommerce.onrender.com/api/shop/cart/add",
-      {
-        userId,
-        productId,
-        quantity,
-      }
-    );
+    const response = await axios.post(`${API_BASE_URL}/shop/cart/add`, {
+      userId,
+      productId,
+      quantity,
+    });
 
     return response.data;
-  }
+  },
 );
 
 export const fetchCartItems = createAsyncThunk(
   "cart/fetchCartItems",
   async (userId) => {
-    const response = await axios.get(
-      `https://react-project-ecommerce.onrender.com/api/shop/cart/get/${userId}`
-    );
+    const response = await axios.get(`${API_BASE_URL}/shop/cart/get/${userId}`);
 
     return response.data;
-  }
+  },
 );
 
 export const deleteCartItem = createAsyncThunk(
   "cart/deleteCartItem",
   async ({ userId, productId }) => {
     const response = await axios.delete(
-      `https://react-project-ecommerce.onrender.com/api/shop/cart/${userId}/${productId}`
+      `${API_BASE_URL}/shop/cart/${userId}/${productId}`,
     );
 
     return response.data;
-  }
+  },
 );
 
 export const updateCartQuantity = createAsyncThunk(
   "cart/updateCartQuantity",
   async ({ userId, productId, quantity }) => {
-    const response = await axios.put(
-      "https://react-project-ecommerce.onrender.com/api/shop/cart/update-cart",
-      {
-        userId,
-        productId,
-        quantity,
-      }
-    );
+    const response = await axios.put(`${API_BASE_URL}/shop/cart/update-cart`, {
+      userId,
+      productId,
+      quantity,
+    });
 
     return response.data;
-  }
+  },
 );
 
 const shoppingCartSlice = createSlice({

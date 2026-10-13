@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_BASE_URL } from "@/lib/api";
 
 const initialState = {
   orderList: [],
@@ -9,37 +10,35 @@ const initialState = {
 export const getAllOrdersForAdmin = createAsyncThunk(
   "/order/getAllOrdersForAdmin",
   async () => {
-    const response = await axios.get(
-      `https://react-project-ecommerce.onrender.com/api/admin/orders/get`
-    );
+    const response = await axios.get(`${API_BASE_URL}/admin/orders/get`);
 
     return response.data;
-  }
+  },
 );
 
 export const getOrderDetailsForAdmin = createAsyncThunk(
   "/order/getOrderDetailsForAdmin",
   async (id) => {
     const response = await axios.get(
-      `https://react-project-ecommerce.onrender.com/api/admin/orders/details/${id}`
+      `${API_BASE_URL}/admin/orders/details/${id}`,
     );
 
     return response.data;
-  }
+  },
 );
 
 export const updateOrderStatus = createAsyncThunk(
   "/order/updateOrderStatus",
   async ({ id, orderStatus }) => {
     const response = await axios.put(
-      `https://react-project-ecommerce.onrender.com/api/admin/orders/update/${id}`,
+      `${API_BASE_URL}/admin/orders/update/${id}`,
       {
         orderStatus,
-      }
+      },
     );
 
     return response.data;
-  }
+  },
 );
 
 const adminOrderSlice = createSlice({
